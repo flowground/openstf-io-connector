@@ -1,0 +1,219 @@
+{
+    "title": "Smartphone Test Farm",
+    "description": "Control and manages real Smartphone devices from browser and restful apis",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/openstf.io/2.3.0/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "http://openstf.local/api/v1",
+                    "https://openstf.local/api/v1",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "accessTokenAuth": {
+                "label": "authorization (accessTokenAuth)",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "getDevices": {
+            "main": "./lib/actions/getDevices.js",
+            "title": "Device List",
+            "description": "The devices endpoint return list of all the STF devices including Disconnected and Offline",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getDevices.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getDeviceBySerial": {
+            "main": "./lib/actions/getDeviceBySerial.js",
+            "title": "Device Information",
+            "description": "The device enpoint return information about a single device",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getDeviceBySerial.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getUser": {
+            "main": "./lib/actions/getUser.js",
+            "title": "User Profile",
+            "description": "The User Profile endpoint returns information about current authorized user",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getUser.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getUserAccessTokens": {
+            "main": "./lib/actions/getUserAccessTokens.js",
+            "title": "Access Tokens",
+            "description": "The Access Tokens endpoints returns titles of all the valid access tokens",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getUserAccessTokens.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getUserDevices": {
+            "main": "./lib/actions/getUserDevices.js",
+            "title": "User Devices",
+            "description": "The User Devices endpoint returns device list owner by current authorized user",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getUserDevices.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "addUserDevice": {
+            "main": "./lib/actions/addUserDevice.js",
+            "title": "Add a device to a user",
+            "description": "The User Devices endpoint will request stf server for a new device.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "application/octet-stream": "application/octet-stream"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/addUserDevice.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteUserDeviceBySerial": {
+            "main": "./lib/actions/deleteUserDeviceBySerial.js",
+            "title": "Delete User Device",
+            "description": "The User Devices endpoint will request for device release from stf server. It will return request accepted if device is being used by current user",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteUserDeviceBySerial.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getUserDeviceBySerial": {
+            "main": "./lib/actions/getUserDeviceBySerial.js",
+            "title": "User Device",
+            "description": "The devices enpoint return information about device owned by user",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getUserDeviceBySerial.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "remoteDisconnectUserDeviceBySerial": {
+            "main": "./lib/actions/remoteDisconnectUserDeviceBySerial.js",
+            "title": "Remote Disconnect",
+            "description": "The device connect endpoint will request stf server to disconnect remotely",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/remoteDisconnectUserDeviceBySerial.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "remoteConnectUserDeviceBySerial": {
+            "main": "./lib/actions/remoteConnectUserDeviceBySerial.js",
+            "title": "Remote Connect",
+            "description": "The device connect endpoint will request stf server to connect remotely",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/remoteConnectUserDeviceBySerial.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

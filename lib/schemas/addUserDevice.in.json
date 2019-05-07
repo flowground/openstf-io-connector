@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "description": "payload object for adding device to user",
+            "properties": {
+                "serial": {
+                    "description": "Device Serial",
+                    "type": "string"
+                },
+                "timeout": {
+                    "description": "Device timeout in ms. If device is kept idle for this period, it will be automatically disconnected. Default is provider group timeout",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "serial"
+            ],
+            "type": "object"
+        }
+    }
+}
